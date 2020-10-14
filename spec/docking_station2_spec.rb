@@ -2,29 +2,36 @@ require 'docking_station2'
 
 describe DockingStation do
   docking_station = DockingStation.new
-  bike = docking_station.release_bike
 
-  describe '#release_bike' do
+  describe '#release' do
     it 'releases a bike' do
-      expect(subject.release_bike).to eq "I have released a bike"
+      docking_station.release
+      expect(docking_station.print.length).to eq 0
+    end
+  end
+
+  describe '#release' do
+    it 'releases a bike' do
+      expect { docking_station.release }.to raise_error("There are no bikes")
     end
   end
 
   describe '#return_bike' do
     it 'adds a bike to the dock' do
-      actual = subject.return_bike
-      #this line is failing, we need to check
-      #whether the array has been editied
-      expected = docking_station.length
-      expect(actual).to eq expected
+      docking_station.return_bike
+      expect(docking_station.print.length).to eq 1
+    end
+  end
+
+  describe '#return_bike' do
+    it 'adds a bike to the dock' do
+      expect{docking_station.return_bike}.to raise_error("The docking station is full")
     end
   end
 
   describe '#see_bike' do
     it 'checks to see if there is a bike in the dock to release' do
-      actual = subject.see_bike
-      expected = "There is a bike"s
-      expect(actual).to eq expected
+      expect(subject.see_bike).to eq "There is a bike"
     end
   end
 
@@ -39,15 +46,6 @@ describe Bike do
     end
   end
 
-  describe "#new" do
-    it "check whether the bike works" do
-      expect(subject.working?).to eq "This bike is working"
-    end
-  end
-
-  bike.working?
 end
 
-# 1. change code to work with an attirbute reader
-# 2. edit expected values to work from array not text
-#
+#next chapter to work on is ch14
