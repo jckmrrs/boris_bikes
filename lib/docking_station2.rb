@@ -11,8 +11,8 @@ attr_reader :dock_array
 
     # Loop through our bikes and give us a working one
     @dock_array.each do |bike|
-      if bike.working == true
-        @dock_array.delete(bike)
+      if bike.working? == true
+        @dock_array.delete_at(dock_array.find_index(bike))
         return bike
       end
 
@@ -55,8 +55,7 @@ attr_reader :working
   end
 
   def working?
-    #if @working = true
-    return "This bike is working"
+    return ( if @working == true then true else false end)
   end
 
 end
