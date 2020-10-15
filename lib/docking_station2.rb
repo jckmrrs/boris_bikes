@@ -8,13 +8,12 @@ attr_reader :dock_array, :number_of_bikes
   end
 
   def release
-    raise "There are no bikes" if @dock_array.length == 0
+    raise "There are no bikes" if empty?
     @bike = Bike.new; @dock_array.pop if @dock_array.length != 0
   end
 
-
-  def return_bike
-    if @dock_array.length < @capacity then @dock_array << Bike.new  else raise "The docking station is full" end
+  def return_bike(bike)
+    if full? then @dock_array << bike  else raise "The docking station is full" end
   end
 
   def see_bike
@@ -23,6 +22,16 @@ attr_reader :dock_array, :number_of_bikes
     else
       return "There are no bikes to see"
     end
+  end
+
+  private
+
+  def full?
+    return (if @dock_array.length < @capacity then true else false end)
+  end
+
+  def empty?
+    return (if @dock_array.length == 0 then true else false end)
   end
 
 end
@@ -34,23 +43,5 @@ attr_reader :bike
   def working?
     return "This bike is working"
   end
-
-end
-
-def release
-  if @dock_array.length == 0
-    raise "There are no bikes"
-  else
-    @bike = Bike.new
-    @dock_array.pop
-  end
-end
-
-def return_bike
-  if @dock_array.length < @capacity
-   @dock_array << "bike"
- else
-   raise "The docking station is full"
- end
 
 end
