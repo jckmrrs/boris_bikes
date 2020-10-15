@@ -37,7 +37,11 @@ end
 
 class Bike
 
-attr_reader :bike
+attr_reader :working
+
+  def initialize(working = true)
+    @working = working
+  end
 
   def working?
     return "This bike is working"

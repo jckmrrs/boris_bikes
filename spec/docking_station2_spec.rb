@@ -44,6 +44,17 @@ describe DockingStation do
     end
   end
 
+  describe '#return_bike' do
+    it 'allows the user to report a broken bike'do
+      station = DockingStation.new
+      bike = Bike.new(false)
+      station.return_bike(bike)
+      actual_value = station.dock_array.last.working
+      expected_value = false
+      expect(actual_value).to eq expected_value
+    end
+  end
+
   describe '#see_bike' do
     it 'checks to see if there is a bike in the dock to release' do
       station = DockingStation.new
