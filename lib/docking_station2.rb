@@ -8,7 +8,18 @@ attr_reader :dock_array
 
   def release
     raise "There are no bikes" if empty?
-    @bike = Bike.new; @dock_array.pop if @dock_array.length != 0
+
+    # Loop through our bikes and give us a working one
+    @dock_array.each do |bike|
+      if bike.working == true
+        @dock_array.delete(bike)
+        return bike
+      end
+
+      # If we haven't found a bike, then error
+      raise "There are no working bikes"
+    end
+
   end
 
   def return_bike(bike)
@@ -44,6 +55,7 @@ attr_reader :working
   end
 
   def working?
+    #if @working = true
     return "This bike is working"
   end
 

@@ -23,9 +23,20 @@ describe DockingStation do
   end
 
   describe '#release' do
-    it 'doesnt releases a bike, raises error' do
+    it 'No bikes, raises error' do
       station = DockingStation.new
       expect { station.release }.to raise_error("There are no bikes")
+    end
+  end
+
+  describe '#release' do
+    it 'No working bikes, raise error' do
+
+    station = DockingStation.new
+    bike = Bike.new(false)
+    station.return_bike(bike)
+
+    expect { station.release }.to raise_error("There are no working bikes")
     end
   end
 
@@ -49,9 +60,7 @@ describe DockingStation do
       station = DockingStation.new
       bike = Bike.new(false)
       station.return_bike(bike)
-      actual_value = station.dock_array.last.working
-      expected_value = false
-      expect(actual_value).to eq expected_value
+      expect(station.dock_array.last.working).to eq false
     end
   end
 
