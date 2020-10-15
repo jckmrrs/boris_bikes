@@ -1,10 +1,9 @@
 class DockingStation
-attr_reader :dock_array, :number_of_bikes
+attr_reader :dock_array
 
   def initialize(number_of_bikes = 20)
     @dock_array = []
-    @capacity = number_of_bikes
-    @number_of_bikes = number_of_bikes
+    @DEFAULT_CAPACITY = number_of_bikes
   end
 
   def release
@@ -27,7 +26,7 @@ attr_reader :dock_array, :number_of_bikes
   private
 
   def full?
-    return (if @dock_array.length < @capacity then true else false end)
+    return (if @dock_array.length < @DEFAULT_CAPACITY then true else false end)
   end
 
   def empty?
