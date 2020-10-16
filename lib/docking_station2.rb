@@ -1,5 +1,5 @@
 class DockingStation
-attr_reader :dock_array
+attr_accessor :dock_array
 
   def initialize(number_of_bikes = 20)
     @dock_array = []
@@ -48,7 +48,7 @@ end
 
 class Bike
 
-attr_reader :working
+attr_accessor :working
 
   def initialize(working = true)
     @working = working
@@ -56,6 +56,44 @@ attr_reader :working
 
   def working?
     return ( if @working == true then true else false end)
+  end
+
+end
+
+class Van
+
+attr_reader :van_array
+
+  def initialize
+    @van_array = []
+  end
+
+  def pick_up(docking_station_to_check)
+    docking_station_to_check.dock_array.each do |bike|
+      if bike.working? == false
+        @van_array << bike
+      end
+    end
+    docking_station_to_check.dock_array -= @van_array
+  end
+end
+
+class Garage
+  attr_reader :garage_array
+
+  def initialize
+    @garage_array = []
+  end
+
+  def drop_off(van_to_drop_off)
+    @garage_array += van_to_drop_off.van_array
+    van_to_drop_off.van_array.clear
+  end
+
+  def repair
+    @garage_array.each do |bike|
+      bike.working = true
+    end
   end
 
 end

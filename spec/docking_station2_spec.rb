@@ -15,8 +15,6 @@ describe DockingStation do
   describe '#release' do
     it 'releases a bike' do
       station = DockingStation.new
-
-
       allow(bike).to receive(:working?).and_return(true)
       20.times {station.return_bike(bike)}
       station.release
@@ -87,4 +85,52 @@ describe Bike do
 
 end
 
-#next chapter to work on is ch14
+describe Van do
+  describe "#pick_up_broken_bike" do
+    it 'detects a broken bike in the dock_array and removes it' do
+      van = Van.new
+      station = DockingStation.new
+      5.times {station.return_bike(Bike.new(false))}
+      5.times {station.return_bike(Bike.new)}
+      van.pick_up(station)
+      expect(van.van_array.length).to eq 5
+    end
+  end
+
+end
+
+describe Garage do
+  describe "#deliver_broken_bikes_to_garage" do
+    it "takes bikes from van array and puts them in garage array" do
+      van = Van.new
+      garage = Garage.new
+      station = DockingStation.new
+      5.times {station.return_bike(Bike.new(false))}
+      van.pick_up(station)
+      garage.drop_off(van)
+      expect(garage.garage_array.length).to eq 5
+    end
+  end
+
+  describe "#fix_broken_bike" do
+    it "takes a broken bike and fixes it" do
+      garage = Garage.new
+      van = Van.new
+      station = DockingStation.new
+      5.times {station.return_bike(Bike.new(false))}
+      van.pick_up(station)
+      garage.drop_off(van)
+      garage.repair
+      expect(garage.garage_array).not_to include false
+    end
+  end
+end
+
+# make a van class - completed
+# detect broken bikes and remove them from dock array - completed
+# take them to the garage array - completed
+# detect when it has a working bike, and return it to the dock array
+
+# make a garage class - completed
+# detect when it has a bike, and 'fix' - completed
+# return fixed bike to van
